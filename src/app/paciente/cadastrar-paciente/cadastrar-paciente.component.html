@@ -1,0 +1,75 @@
+<h4>Cadastro de Pacientes</h4>
+
+<form #formCadastro="ngForm" (submit)="casdastrarPaciente(formCadastro)"> 
+
+    <div class="row">
+        <div class="col-md-4">
+
+            <div class="form-group">
+                <label>Nome do Paciente:</label>
+                <input type="text" class="form-control"
+                        name="nome" ngModel
+                       placeholder="Digite aqui"/>
+                       <div class="text-danger"
+                       *ngFor="let msg of errosNome">
+                       {{msg}}
+                       </div>
+            </div>
+
+            <div class="form-group">
+                <label>CPF do Paciente:</label>
+                <input type="text" class="form-control"
+                        name="cpf" ngModel
+                       placeholder="Digite aqui"/>
+                       <div class="text-danger"
+                       *ngFor="let msg of errosCpf">
+                        {{msg}}
+                       </div>
+            </div>
+        
+
+            <div class="form-group">
+                <label>Data Nascimento do Paciente:</label>
+                <input type="date" class="form-control"
+                        name="dataNasc" ngModel
+                       placeholder="Digite aqui"/>
+            </div>
+
+            
+            <div class="form-group">
+                <label>Telefone do Paciente:</label>
+                <input type="text" class="form-control"
+                        name="telefone" ngModel
+                       placeholder="Digite aqui"/>
+                       <div class="text-danger"
+                       *ngFor="let msg of errosTelefone">
+                        {{msg}}
+                       </div>
+            </div>
+
+            <div class="form-group">
+                <label>Email do Paciente:</label>
+                <input type="text" class="form-control"
+                        name="email" ngModel
+                       placeholder="Digite aqui"/>
+                       <div class="text-danger"
+                       *ngFor="let msg of errosEmail">
+                        {{msg}}
+                       </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-success"
+                    value="Cadastrar Paciente"/>
+            </div>
+
+            <div class="form-group">
+                <strong>{{mensagem}}</strong>
+            </div>
+
+
+        </div>
+    </div>
+
+</form>
+

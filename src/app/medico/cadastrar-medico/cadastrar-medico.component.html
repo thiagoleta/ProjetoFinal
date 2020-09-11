@@ -1,0 +1,57 @@
+<h4>Cadastro de Médicos</h4>
+
+<form #formmedico="ngForm" (submit)="cadastrarMedico(formmedico)">
+
+    <div class="row">
+        <div class="col-md-4">
+
+            <div class="form-group">
+                <label>Nome do Médico:</label>
+                <input type="text" class="form-control"
+                        name="nome" ngModel
+                       placeholder="Digite aqui"/>
+                       <div class="text-danger" 
+                       *ngFor="let msg of errosNome">   
+                     {{msg}}                       
+                 </div>
+            </div>
+
+            <div class="form-group">
+                <label>CRM do Médico:</label>
+                <input type="text" class="form-control"
+                        name="crm" ngModel
+                       placeholder="Digite aqui"/>
+                       <div class="text-danger" 
+                      *ngFor="let msg of crm">   
+                    {{msg}}                       
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label>Especialização do Médico:</label>
+                <input type="text" class="form-control"
+                        name="especializacao" ngModel
+                       placeholder="Digite aqui"/>
+                       <div class="text-danger" 
+                      *ngFor="let msg of especializacao">   
+                    {{msg}}                       
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-success"
+                    value="Cadastrar Médico"/>
+            </div>
+
+            <div class="form-group">
+                <strong>{{mensagem}}</strong>
+            </div>
+
+
+        </div>
+    </div>
+
+</form>
+
+

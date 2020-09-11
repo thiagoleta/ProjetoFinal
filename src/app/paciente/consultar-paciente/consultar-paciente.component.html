@@ -1,0 +1,140 @@
+<h4>Consulta de Pacientes</h4>
+<br />
+<strong>{{mensagemExclusao}}</strong>
+
+<table class="table table-bordered table-stripped table-hover">
+    <thead>
+       <tr>
+            <th>Código</th>
+            <th>Nome do Paciente</th>
+            <th>CPF</th>
+            <th>Data Nascimento</th>
+            <th>Telefone</th>
+            <th>Email</th>
+            <th>Operações</th>
+        </tr>
+    </thead>
+    <tbody>
+       <tr *ngFor="let paciente of listagemPaciente">
+            <td>{{paciente.idPaciente}}</td>
+            <td>{{paciente.nome}}</td>
+            <td>{{paciente.cpf}}</td>
+            <td>{{paciente.dataNascimento | date : 'dd/MM/yyyy HH:mm'}}</td>
+            <td>{{paciente.telefone}}</td>
+            <td>{{paciente.email}}</td>
+
+            <td>
+
+                <button 
+                (click)="obterPaciente(paciente.idPaciente)"
+                data-target="#janela_edicao" data-toggle="modal" class="btn btn-sm btn-primary">
+                    Atualizar
+                </button>
+
+                <button (click)="excluirPaciente(paciente.idPaciente)" class="btn btn-sm btn-danger ml-1">
+                    Excluir
+                </button>
+
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="6">
+                 Quantidade de Pacientes: {{listagemPaciente.length}}
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+
+<!-- Janela modal para edição de clientes -->
+<div id="janela_edicao" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="text-white 
+                       modal-title">Atualizar dados de Cliente</h5>
+                <button class="close text-white" data-dismiss="modal" aria-label="Close">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                Preencha os campos abaixo para atualizar
+                os dados do paciente.
+                <hr />
+
+                <form #formEdicao="ngForm" (submit)="editarPaciente(formEdicao)">
+
+                    <div class="form-group">
+                        <label>Código Paciente:</label>
+                        <input type="text" class="form-control" name="idPaciente" readonly [ngModel]="pacienteEdicao.idPaciente" />                       
+
+                    </div>
+                          
+
+                    <div class="form-group">
+                        <label>Nome do Paciente:</label>
+                        <input type="text" class="form-control" name="nome" [ngModel]="pacienteEdicao.nome" placeholder="Digite aqui" />
+                        <span class="text-danger" *ngFor="let msg of errosNome">
+                               {{msg}} 
+                        </span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>CPF do Paciente:</label>
+                        <input type="text" class="form-control" name="cpf" [(ngModel)]="pacienteEdicao.cpf" placeholder="Digite aqui" />
+                        <span class="text-danger" *ngFor="let msg of errosCpf">
+                            {{msg}} 
+                     </span>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Data Nascimento do Paciente:</label>
+                        <input type="date" class="form-control" name="dataNasc" [(ngModel)]="pacienteEdicao.dataNascimento" placeholder="Digite aqui" />
+                        <span class="text-danger" *ngFor="let msg of errosDataNasc">
+                            {{msg}} 
+                     </span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Telefone do Paciente:</label>
+                        <input type="text" class="form-control" name="telefone" [(ngModel)]="pacienteEdicao.telefone" placeholder="Digite aqui" />
+                        <span class="text-danger" *ngFor="let msg of errosTelefone">
+                            {{msg}} 
+                     </span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email do Paciente:</label>
+                        <input type="text" class="form-control" name="email" [(ngModel)]="pacienteEdicao.email" placeholder="Digite aqui" />
+                        <span class="text-danger" *ngFor="let msg of errosEmail">
+                            {{msg}} 
+                     </span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" value="Salvar Alterações" />
+                    </div>
+
+                    <div class="form-group">
+                        <strong>{{mensagemEdicao}}</strong>
+                    </div>
+
+                    <!--                 
+                        </div>
+                    </div>
+                 -->
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>

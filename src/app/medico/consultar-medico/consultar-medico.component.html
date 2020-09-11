@@ -1,0 +1,126 @@
+<h4>Consulta de Médicos</h4>
+<br/>
+<strong>{{mensagemExclusao}}</strong>
+
+<table class="table table-bordered table-stripped table-hover">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Nome do Médico</th>
+            <th>CRM</th>
+            <th>Especialização</th>            
+            <th>Operações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let medico of listaMedico">
+            <td>{{medico.idMedico}}</td>
+            <td>{{medico.nome}}</td>
+            <td>{{medico.crm}}</td>
+            <td>{{medico.especializacao}}</td>
+            <td>
+
+                <button 
+                (click)="obterMedico(medico.idMedico)"
+                data-target="#janela_edicao" data-toggle="modal" class="btn btn-sm btn-primary">
+                    Atualizar
+                </button>
+
+                <button
+                (click)="excluirMedico(medico.idMedico)"
+             class="btn btn-sm btn-danger ml-1">
+                Excluir
+            </button>
+
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                Quantidade de Médicos: {{listaMedico.length}}
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+
+<!-- Janela modal para edição de clientes -->
+<div id="janela_edicao" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="text-white 
+                       modal-title">Atualizar dados de Cliente</h5>
+                <button class="close text-white" data-dismiss="modal" aria-label="Close">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                Preencha os campos abaixo para atualizar 
+                os dados do Médico.
+                <hr />
+
+                <form #formEdicao="ngForm" (submit)="editarMedico(formEdicao)">
+
+               
+                   
+                    <div class="form-group">
+                        <label>Nome do Médico:</label>
+                        <input type="text" class="form-control"
+                                name="idMedico" readonly [(ngModel)]="medicoEdicao.idMedico"/>
+                               
+                               
+                    </div>
+                
+                            <div class="form-group">
+                                <label>Nome do Médico:</label>
+                                <input type="text" class="form-control"
+                                        name="nome" [(ngModel)]="medicoEdicao.nome"
+                                       placeholder="Digite aqui"/>
+                                       <span class="text-danger" *ngFor="let msg of errosNome">
+                                        {{msg}} 
+                                 </span>
+                                       
+                            </div>
+                
+                            <div class="form-group">
+                                <label>CRM do Médico:</label>
+                                <input type="text" class="form-control"
+                                        name="crm" [(ngModel)]="medicoEdicao.crm"
+                                       placeholder="Digite aqui"/>
+                                       <span class="text-danger" *ngFor="let msg of crm">
+                                        {{msg}} 
+                                 </span>
+                                       
+                
+                            </div>
+                
+                            <div class="form-group">
+                                <label>Especialização do Médico:</label>
+                                <input type="text" class="form-control"
+                                        name="especializacao" [(ngModel)]="medicoEdicao.especializacao"
+                                       placeholder="Digite aqui"/>
+                                       <span class="text-danger" *ngFor="let msg of especializacao">
+                                        {{msg}} 
+                                 </span>
+                                       
+                            </div>
+                
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-success"
+                                    value="Cadastrar Médico"/>
+                            </div>
+                
+                            <div class="form-group">
+                                <strong>{{mensagemEdicao}} </strong>
+                            </div>
+                
+                
+                        <!-- </div>
+                    </div>
+                 -->
+                </form>
+            </div>
+
+        </div>

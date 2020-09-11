@@ -1,0 +1,81 @@
+<h4>Cadastro de Atendimentos</h4>
+
+<form #formCadastro="ngForm" (submit)="cadastrarAtendimento(formCadastro)">
+
+    <div class="row">
+        <div class="col-md-4">
+
+            <div class="form-group">
+                <label>Data do Atendimento:</label>
+                <input type="date" class="form-control"
+                        name="dataAtendimento" ngModel
+                       placeholder="Digite aqui"/>
+                       <div class="text-danger" *ngFor="let msg of errosDataNasc">
+                        {{msg}}
+                       </div>
+            </div>
+
+            <div class="form-group">
+                <label>Local do Atendimento:</label>
+                <input type="text" class="form-control"
+                        name="local" ngModel
+                       placeholder="Digite aqui"/>
+                       <div class="text-danger" *ngFor="let msg of errosLocal">
+                        {{msg}}
+                       </div>
+            </div>
+
+         
+
+            <label>Selecione o Médico que irá fazer o atendimento:</label>
+            <select name="idMedico" ngModel class="form-control col-md-12">
+                <option value="">Escolha uma opção</option>
+                <option *ngFor="let item of medicos"
+                        value="{{item.idMedico}}">
+                        {{item.nome}}
+                    </option>
+                    <div class="text-danger" *ngFor="let msg of errosMedico">
+                        {{msg}}
+                       </div>
+                        
+            </select>
+            <br/>
+
+            <label>Selecione o paciente para o Atendimento</label>
+            <select name="idPaciente" ngModel class="form-control col-md-12">
+                <option value="">Escolha uma opção</option>
+                <option *ngFor="let item of pacientes"
+                        value={{item.idPaciente}}>
+                       {{item.nome}}
+                </option>
+                <div class="text-danger" *ngFor="let msg of errosPaciente">
+                    {{msg}}
+                   </div>
+
+            </select>
+            <br/> 
+
+
+            <div class="form-group">
+                <label>Observações</label>
+                <textarea type="text" id="form7" name="observacao" ngModel class="md-textarea form-control" mdbInput></textarea>            
+                       
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-success"
+                    value="Cadastrar Atendimento"/>
+            </div>
+
+            <div class="form-group">
+                <strong>{{mensagemCadastro}}</strong>
+            </div>
+
+
+        </div>
+    </div>
+
+</form>
+

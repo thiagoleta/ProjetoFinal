@@ -1,0 +1,162 @@
+<h4>Consulta de Pacientes</h4>
+<br/>
+<strong>{{mensagemExclusao}}</strong>
+<table class="table table-bordered table-stripped table-hover">
+    <thead>
+        <tr>
+            <th>Código</th>
+            <th>Data do Atendimento</th>
+            <th>Local</th>
+            <th>Nome do Paciente</th>
+            <th>Nome do Médico</th>
+            <th>Especializacao</th>
+                 
+            <th>Operações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let atendimento of listaAtendimento">
+            <td>{{atendimento.idAtendimento}}</td>
+            <td>{{atendimento.dataAtendimento | date : 'dd/MM/yyyy HH:mm'}}</td>
+            <td>{{atendimento.local}}</td>
+            <td>{{atendimento.paciente.nome}}</td>
+            <td>{{atendimento.medico.nome}}</td>
+            <td>{{atendimento.medico.especializacao}}</td>
+            
+            <td>
+
+                <button 
+                (click)="obterAtendimento(atendimento.idAtendimento)"
+                data-target="#janela_edicao" data-toggle="modal" class="btn btn-sm btn-primary">
+                    Atualizar
+                </button>
+
+
+                <button
+                (click)="excluirAtendimento(atendimento.idAtendimento)"
+                 class="btn btn-sm btn-danger ml-1">
+                    Excluir
+                </button>                
+          
+
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="6">
+                Quantidade de Pacientes: {{listaAtendimento.length}}
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+
+<!-- Janela modal para edição de clientes -->
+<div id="janela_edicao" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="text-white 
+                       modal-title">Atualizar dados de Cliente</h5>
+                <button class="close text-white" data-dismiss="modal" aria-label="Close">
+                    &times;
+                </button>
+            </div>
+            <div class="modal-body">
+                Preencha os campos abaixo para atualizar 
+                os dados do Atendimento.
+                <hr />
+
+                <form #formEdicao="ngForm" (submit)="editarAtendimento(formEdicao)">
+
+               
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="form-group">
+                <label>Id do Atendimento:</label>
+                <input type="text" class="form-control"
+                        name="idAtendimento"  readonly [(ngModel)]="atedimentoEdicao.idAtendimento"
+                       placeholder="Digite aqui"/>
+                       <div class="text-danger" *ngFor="let msg of errosId">
+                        {{msg}}
+                       </div>
+            </div>
+
+
+            <div class="form-group">
+                <label>Data do Atendimento:</label>
+                <input type="date" class="form-control"
+                        name="dataAtendimento" [(ngModel)]="atedimentoEdicao.dataAtendimento"
+                       placeholder="Digite aqui"/>
+                       <div class="text-danger" *ngFor="let msg of errosDataNasc">
+                        {{msg}}
+                       </div>
+            </div>
+
+            <div class="form-group">
+                <label>Local do Atendimento:</label>
+                <input type="text" class="form-control"
+                        name="local"  [(ngModel)]="atedimentoEdicao.local"
+                       placeholder="Digite aqui"/>
+                       <div class="text-danger" *ngFor="let msg of errosLocal">
+                        {{msg}}
+                       </div>
+            </div>
+
+         
+
+            <label>Selecione o Médico que irá fazer o atendimento:</label>
+            <select name="idMedico" ngModel class="form-control col-md-12">
+                <option value="">Escolha uma opção</option>
+                <option *ngFor="let item of medicos"
+                        value="{{item.idMedico}}">
+                        {{item.nome}}
+                    </option>
+                    <div class="text-danger" *ngFor="let msg of errosMedico">
+                        {{msg}}
+                       </div>
+                        
+            </select>
+            <br/>
+
+            <label>Selecione o paciente para o Atendimento</label>
+            <select name="idPaciente" ngModel class="form-control col-md-12">
+                <option value="">Escolha uma opção</option>
+                <option *ngFor="let item of pacientes"
+                        value={{item.idPaciente}}>
+                       {{item.nome}}
+                </option>
+                <div class="text-danger" *ngFor="let msg of errosPaciente">
+                    {{msg}}
+                   </div>
+
+            </select>
+            <br/> 
+
+
+            <div class="form-group">
+                <label>Observações</label>
+                <textarea type="text" id="form7" name="observacao"  [(ngModel)]="atedimentoEdicao.observacoes" class="md-textarea form-control" mdbInput></textarea>            
+                       
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-success"
+                    value="Cadastrar Atendimento"/>
+            </div>
+
+            <div class="form-group">
+                <strong>{{mensagemEdicao}}</strong>
+            </div>
+
+
+        </div>
+    </div>
+                </form>
+            </div>
+
+        </div>
